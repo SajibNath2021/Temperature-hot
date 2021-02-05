@@ -29,7 +29,7 @@
             </div>
         </form>
         <div class="weather-status text-white text-center">
-            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <img id="img" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
             <h1 id="city">Dhaka</h1>
             <h3><span id="temp">38.06</span>&deg;C</h3>
             <h1 id="weatherDescription" class="lead">Clouds</h1>
@@ -40,6 +40,7 @@
        
       const cityInput = document.getElementById('city-input').value;
       const cityName = document.getElementById('city').value;
+      const img = document.getElementById('img');
       const WeatherDescription =  document.getElementById('weatherDescription').innerText;
 
  
@@ -47,6 +48,8 @@
      document.getElementById('submit').addEventListener('click', function(){
         const cityInput = document.getElementById('city-input').value;
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&appid=cae47283f8c2a2e60a8058050ab6aa48`)
+
+        // fetch('https://api.openweathermap.org/data/2.5/weather?q='+ cityInput+'&units=metric&appid=cae47283f8c2a2e60a8058050ab6aa48')
         
        .then(res => res.json())
        .then(data => {
@@ -55,6 +58,8 @@
             document.getElementById('temp').innerText = data.main.temp;
             document.getElementById('city').innerText = data.name;
             document.getElementById('weatherDescription').innerText = data.weather[0].description;
+            const inputImg =  data.weather[0].icon;
+            document.getElementById('img').src = `https://openweathermap.org/img/wn/${inputImg}@2x.png`;
         })
       })
     </script>
